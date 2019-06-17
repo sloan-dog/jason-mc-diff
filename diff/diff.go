@@ -11,7 +11,7 @@ func DiffStructures(left types.UnknownStringMapStructure, right types.UnknownStr
 	return mapsAreSame(left, right)
 }
 
-func getKeysFromLeftAndRight(left map[string]interface{}, right map[string]interface{}) sets.Set {
+func getKeysFromLeftAndRight(left types.UnknownStringMapStructure, right types.UnknownStringMapStructure) sets.Set {
 	keys := sets.NewSet()
 
 	for key := range left {
@@ -24,8 +24,8 @@ func getKeysFromLeftAndRight(left map[string]interface{}, right map[string]inter
 }
 
 func mapsAreSame(left interface{}, right interface{}) (bool, error) {
-	leftMap, leftOk := left.(map[string]interface{})
-	rightMap, rightOk := right.(map[string]interface{})
+	leftMap, leftOk := left.(types.UnknownStringMapStructure)
+	rightMap, rightOk := right.(types.UnknownStringMapStructure)
 	keys := getKeysFromLeftAndRight(leftMap, rightMap)
 	if !leftOk || !rightOk {
 		return false, nil
@@ -84,7 +84,7 @@ func diffArray(left interface{}, right interface{}) (bool, error) {
 			same, err = diffString(leftEl, rightEl)
 		case int:
 			same, err = diffInteger(leftEl, rightEl)
-		case map[string]interface{}:
+		case types.UnknownStringMapStructure:
 			same, err = mapsAreSame(leftEl, rightEl)
 		case []interface{}:
 			same, err = diffArray(leftEl, rightEl)

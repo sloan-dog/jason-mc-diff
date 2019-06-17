@@ -1,6 +1,8 @@
 package diff
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestDiffStructures(t *testing.T) {
 
@@ -135,4 +137,14 @@ func TestDiffStructures(t *testing.T) {
 			t.Error("should be false", err)
 		}
 	})
+
+	// t.Run("It should correctly diff a massive object", func(t *testing.T) {
+	// 	mockLeft := map[string]interface{}{
+	// 		"foo": "back",
+	// 		"boo": []interface{}{
+	// 			"fizz", "buzz", "putz",
+	// 		},
+	// 		"moo": "boo",
+	// 	}
+	// })
 }
